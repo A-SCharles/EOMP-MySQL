@@ -146,7 +146,7 @@ SELECT * FROM Q1_16;
 CREATE VIEW Q1_17 AS 
 SELECT
 format(SUM(Price),2) AS 'Total Unit Price',
-format((Price),2) AS 'Average Price',
+format(AVG(Price),2) AS 'Average Price',
 COUNT(ProductName) AS 'Number of Products'
 FROM Q1_16;
 
@@ -154,7 +154,40 @@ SELECT *
 FROM Q1_17;
 
 -- 1.18 
-SELECT DISTINCT SupplierID
-FROM Suppliers;
+CREATE VIEW Q1_18 AS
+SELECT DISTINCT count(SupplierID)
+FROM products;
 
+SELECT *
+FROM Q1_18;
 
+-- 1.19 
+CREATE VIEW Q1_19 AS
+SELECT 
+count(ProductID),
+SupplierID
+FROM Products
+GROUP BY SupplierID;
+
+SELECT *
+FROM Q1_19;
+
+-- 1.20 
+CREATE VIEW Q1_20 AS
+SELECT 
+count(ProductID),
+SupplierID,
+SUM(Price * Stock)
+FROM Products
+GROUP BY SupplierID;
+
+SELECT *
+FROM Q1_20;
+
+-- 1.21
+UPDATE Products
+SET Price = '15.95', Weight = '1kg'
+WHERE ProductID = '1004';
+
+SELECT * FROM products
+where ProductID = '1004';
